@@ -20,16 +20,25 @@ for file in files:
 pprint(sounds)
 
 sample_rate = 48000
-advance = 0.05 * sample_rate
+speed_multiplier = 1.7
+advance = 0.15 * sample_rate
+space_skip = 0.4 * advance
 
 say_this = "This is a test of the animal crossing style talking machine"
+say_this = "mestr lokee i mess yu bro"
+say_this = "pastee luuk at des"
+say_this = "kil haw es yor de goeng"
+say_this = "weleam haw was yor de"
+say_this = "i med somteng kul"
+say_this = "ame  i lov yuu vere alat"
+say_this = "ef yu wurk hard yu wel hav a gud lif"
 say = say_this.lower().strip()
 cursor = 0
 notes = []
 for char in say:
     notes.append((char, cursor))
     if char == " ":
-        cursor += 4.0 * advance
+        cursor += space_skip
     else:
         cursor += advance
 # advance the cursor by the length of the last note
@@ -60,8 +69,10 @@ output_dir = "output"
 if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-file_path = os.path.join(output_dir, "guy" + '.wav')
-write(file_path, sample_rate, base.astype(np.int16))
+name = say_this.replace(" ", "_")
+file_path = os.path.join(output_dir, name + '.wav')
+write_rate = int(sample_rate*speed_multiplier)
+write(file_path, write_rate, base.astype(np.int16))
 playsound(file_path)
 # for file in files:
 #     playsound(voice_path + "/" + file)
